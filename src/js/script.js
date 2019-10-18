@@ -51,20 +51,27 @@
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
   };
-  
+
   class Product {
-    constructor(){
+    constructor() {
       const thisProduct = this;
 
       console.log('new Product:', thisProduct);
     }
-  }
+  };
   const app = {
-    initMenu: function(){
-        const testProduct = new Product();
-        console.log('testProduct:', testProduct);
-      },
-    init: function(){
+    initMenu: function() {
+      const thisApp = this;
+      console.log('thisApp.data:', thisApp.data);
+      const testProduct = new Product();
+      console.log('testProduct:', testProduct);
+    },
+    initData: function() {
+      const thiApp = this;
+      thisApp.data = dataSource;
+    },
+
+    init: function() {
       const thisApp = this;
       console.log('*** App starting ***');
       console.log('thisApp:', thisApp);
@@ -72,8 +79,11 @@
       console.log('settings:', settings);
       console.log('templates:', templates);
 
+      thisApp.initData();
       thisApp.initMenu();
     },
   };
-  app.init(),
+
+
+  app.init();
 }
