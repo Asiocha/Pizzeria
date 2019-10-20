@@ -61,6 +61,8 @@
       thisProduct.renderInMenu();
       thisProduct.getElements();
       thisProduct.initAccordion();
+      thisProduct.initOrderForm();
+      thisProduct.processOrder();
 
       console.log('new Product:', thisProduct);
     }
@@ -78,6 +80,7 @@
     }
     getElements() {
       const thisProduct = this;
+      console.log(thisProduct);
 
       thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
       thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
@@ -89,6 +92,7 @@
       const thisProduct = this;
       /* find the clickable trigger (the element that should react to clicking) */
       const productHeader = document.querySelector('product__header');
+      console.log(productHeader);
       /* START: click event listener to trigger */
       const buttonTest = thisProduct.element.querySelector(select.menuProduct.clickable);
 
@@ -98,15 +102,15 @@
         /* prevent default action for event */
         event.preventDefault();
         /* toggle active class on element of thisProduct */
-        thisProduct.classList.add('active');
-        console.log(productHeader);
+        thisProduct.element.classList.add('active');
+        console.log(thisProduct);
         /* find all active products */
         const activeProducts = document.querySelectorAll('product__name no-spacing.active');
         console.log(activeProducts);
         /* START LOOP: for each active product */
-        for (let active in activeProducts) {
+        for (let active of activeProducts){
           /* START: if the active product isn't the element of thisProduct */
-          if (active !== thisProduct.element) {
+          if(active !== thisProduct.element){
             /* remove class active for the active product */
             activeProducts.classList.remove('active');
             /* END: if the active product isn't the element of thisProduct */
@@ -115,6 +119,14 @@
         }
         /* END: click event listener to trigger */
       });
+    }
+    initOrderForm(){
+      const thisProduct = this;
+      console.log('initOrderForm',thisProduct);
+    }
+    processOrder(){
+      const thisProduct = this;
+      console.log('processOrder',thisProduct);
     }
   }
 
