@@ -92,28 +92,24 @@
     initAccordion() {
       const thisProduct = this;
       /* find the clickable trigger (the element that should react to clicking) */
-      const productHeader = document.querySelector('product__header');
-      console.log(productHeader);
+      const productHeader = thisProduct.accordionTrigger;
       /* START: click event listener to trigger */
-      const buttonTest = thisProduct.element.querySelector(select.menuProduct.clickable);
-
-      buttonTest.addEventListener('click', function(event) {
+      productHeader.addEventListener('click', function() {
         console.log('clicked');
-
         /* prevent default action for event */
         event.preventDefault();
         /* toggle active class on element of thisProduct */
         thisProduct.element.classList.toggle('active');
         console.log(thisProduct);
         /* find all active products */
-        const activeProducts = document.querySelectorAll('product__name no-spacing.active');
+        const activeProducts = document.querySelectorAll(select.all.menuProductsActive);
         console.log(activeProducts);
         /* START LOOP: for each active product */
         for (let active of activeProducts) {
           /* START: if the active product isn't the element of thisProduct */
           if (active !== thisProduct.element) {
             /* remove class active for the active product */
-            activeProducts.classList.remove('active');
+            activeProducts.classList.toggle('active');
             /* END: if the active product isn't the element of thisProduct */
           }
           /* END LOOP: for each active product */
@@ -173,13 +169,15 @@
             /* deduct price of option from price */
           }
           /* END ELSE IF: if option is not selected and option is default */
-          const classImage = '.'paramId + '-' + optionId;
+          const classImage = '.' + paramId + '-' + optionId;
 
           const images = thisProduct.imageWrapper.querySelectorAll(classImage);
 
           if (optionSelected){
             for(let optionImage of optionImages){
+            if(optionImage)
             optionImage.classList.add('active');
+            }
           } else {
             for(let optionImage of optionImages){
             optionImage.classList.remove('active');
