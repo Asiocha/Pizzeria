@@ -87,6 +87,7 @@
       thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
+      thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
     }
     initAccordion() {
       const thisProduct = this;
@@ -102,7 +103,7 @@
         /* prevent default action for event */
         event.preventDefault();
         /* toggle active class on element of thisProduct */
-        thisProduct.element.classList.add('active');
+        thisProduct.element.classList.toggle('active');
         console.log(thisProduct);
         /* find all active products */
         const activeProducts = document.querySelectorAll('product__name no-spacing.active');
@@ -117,10 +118,10 @@
           }
           /* END LOOP: for each active product */
         }
-        thisProduct.element.classList.add('acive');
         /* END: click event listener to trigger */
       });
     }
+
     initOrderForm() {
       const thisProduct = this;
       console.log('initOrderForm', thisProduct);
@@ -172,7 +173,19 @@
             /* deduct price of option from price */
           }
           /* END ELSE IF: if option is not selected and option is default */
+          const classImage = '.'paramId + '-' + optionId;
+
+          const images = thisProduct.imageWrapper.querySelectorAll(classImage);
+
+          if (optionSelected){
+            for(let optionImage of optionImages){
+            optionImage.classList.add('active');
+          } else {
+            for(let optionImage of optionImages){
+            optionImage.classList.remove('active');
+          }
         }
+      }
         /* END LOOP: for each optionId in param.options */
       }
       /* END LOOP: for each paramId in thisProduct.data.params */
@@ -206,7 +219,6 @@
         thisApp.initMenu();
       },
     };
-
 
     app.init();
   }
