@@ -88,22 +88,23 @@
       thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
       thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
       thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper);
+      thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
     }
     initAccordion() {
       const thisProduct = this;
       /* find the clickable trigger (the element that should react to clicking) */
-      const productHeader = thisProduct.accordionTrigger;
+      const productHeader = thisProduct.element.querySelector(select.menuProduct.clickable);
       /* START: click event listener to trigger */
       productHeader.addEventListener('click', function() {
-        console.log('clicked');
+        //console.log('clicked');
         /* prevent default action for event */
         event.preventDefault();
         /* toggle active class on element of thisProduct */
         thisProduct.element.classList.toggle('active');
-        console.log(thisProduct);
+        //console.log(thisProduct);
         /* find all active products */
         const activeProducts = document.querySelectorAll(select.all.menuProductsActive);
-        console.log(activeProducts);
+        //console.log(activeProducts);
         /* START LOOP: for each active product */
         for (let active of activeProducts) {
           /* START: if the active product isn't the element of thisProduct */
@@ -120,7 +121,7 @@
 
     initOrderForm() {
       const thisProduct = this;
-      console.log('initOrderForm', thisProduct);
+      //console.log('initOrderForm', thisProduct);
 
       thisProduct.form.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -141,10 +142,10 @@
     processOrder() {
 
       const thisProduct = this;
-      console.log('processOrder', thisProduct);
+      //console.log('processOrder', thisProduct);
       /* read all data from the form (using utils.serializeFormToObject) and save it to const formData */
       const formData = utils.serializeFormTToObject(thisProduct.form);
-      console.log('formData', formData);
+      //console.log('formData', formData);
       /* set variable price to equal thisProduct.data.price */
       const price = thisProduct.data.price;
       /* START LOOP: for each paramId in thisProduct.data.params */
@@ -169,18 +170,15 @@
             /* deduct price of option from price */
           }
           /* END ELSE IF: if option is not selected and option is default */
-          const classImage = '.' + paramId + '-' + optionId;
+          const image = '.' + paramId + '-' + optionId;
 
           const images = thisProduct.imageWrapper.querySelectorAll(classImage);
 
-          if (optionSelected){
-            for(let optionImage of optionImages){
-            if(optionImage)
-            optionImage.classList.add('active');
-            }
+          for(let image of images){
+            if(image === optionSelected){
+            image.classList.add('active');
           } else {
-            for(let optionImage of optionImages){
-            optionImage.classList.remove('active');
+            image.classList.remove('active');
           }
         }
       }
@@ -190,7 +188,15 @@
       thisProduct.priceElem.innerHTML = thisProduct.price;
       /* set the contents of thisProduct.priceElem to be the value of variable price */
     }
+  }
+    class AmountWidget {
+      constructor(element){
+        const thisWidget = this;
 
+        console.log('AmountWidget', thisAmount);
+        console.log('constructor arguments:', element);
+      }
+    }
     const app = {
       initMenu: function() {
         const thisApp = this;
