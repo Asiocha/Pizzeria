@@ -62,6 +62,7 @@
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
 
       console.log('new Product:', thisProduct);
@@ -110,7 +111,7 @@
           /* START: if the active product isn't the element of thisProduct */
           if (active !== thisProduct.element) {
             /* remove class active for the active product */
-            activeProducts.classList.toggle('active');
+            activeProducts.classList.remove('active');
             /* END: if the active product isn't the element of thisProduct */
           }
           /* END LOOP: for each active product */
@@ -144,7 +145,7 @@
       const thisProduct = this;
       //console.log('processOrder', thisProduct);
       /* read all data from the form (using utils.serializeFormToObject) and save it to const formData */
-      const formData = utils.serializeFormTToObject(thisProduct.form);
+      const formData = utils.serializeFormToObject(thisProduct.form);
       //console.log('formData', formData);
       /* set variable price to equal thisProduct.data.price */
       let price = thisProduct.data.price;
@@ -173,55 +174,60 @@
 
           const images = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
 
-          for(let image of images){
-            if(image === optionSelected){
-            image.classList.add('active');
-          } else {
-            image.classList.remove('active');
+          for (let image of images) {
+            if (image === optionSelected) {
+              image.classList.add('active');
+            } else {
+              image.classList.remove('active');
+            }
           }
         }
-      }
         /* END LOOP: for each optionId in param.options */
       }
       /* END LOOP: for each paramId in thisProduct.data.params */
       thisProduct.priceElem.innerHTML = thisProduct.price;
       /* set the contents of thisProduct.priceElem to be the value of variable price */
     }
-  }
-    class AmountWidget {
-      constructor(element){
-        const thisWidget = this;
+    initAmountWidget() {
+      const thisProduct = this;
 
-        console.log('AmountWidget', thisAmount);
-        console.log('constructor arguments:', element);
-      }
+      thisProduct.amountWidget = new AmountWidget(thisProduct.AmountWidgetElem);
     }
-    const app = {
-      initMenu: function() {
-        const thisApp = this;
-        console.log('thisApp.data:', thisApp.data);
-
-        for (let productData in thisApp.data.products) {
-          new Product(productData, thisApp.data.products[productData]);
-        }
-      },
-      initData: function() {
-        const thisApp = this;
-        thisApp.data = dataSource;
-      },
-
-      init: function() {
-        const thisApp = this;
-        console.log('*** App starting ***');
-        console.log('thisApp:', thisApp);
-        console.log('classNames:', classNames);
-        console.log('settings:', settings);
-        console.log('templates:', templates);
-
-        thisApp.initData();
-        thisApp.initMenu();
-      },
-    };
-
-    app.init();
   }
+  class AmountWidget {
+    constructor(element) {
+      const thisWidget = this;
+
+      console.log('AmountWidget', thisWidget);
+      console.log('constructor arguments:', element);
+    }
+  }
+  const app = {
+    initMenu: function() {
+      const thisApp = this;
+      console.log('thisApp.data:', thisApp.data);
+
+      for (let productData in thisApp.data.products) {
+        new Product(productData, thisApp.data.products[productData]);
+      }
+    },
+    initData: function() {
+      const thisApp = this;
+      thisApp.data = dataSource;
+    },
+
+    init: function() {
+      const thisApp = this;
+      console.log('*** App starting ***');
+      console.log('thisApp:', thisApp);
+      console.log('classNames:', classNames);
+      console.log('settings:', settings);
+      console.log('templates:', templates);
+
+      thisApp.initData();
+      thisApp.initMenu();
+    },
+  };
+
+  app.init();
+}
