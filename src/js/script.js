@@ -147,13 +147,13 @@
       const formData = utils.serializeFormTToObject(thisProduct.form);
       //console.log('formData', formData);
       /* set variable price to equal thisProduct.data.price */
-      const price = thisProduct.data.price;
+      let price = thisProduct.data.price;
       /* START LOOP: for each paramId in thisProduct.data.params */
       for (let paramId in thisProduct.data.params) {
         /* save the element in thisProduct.data.params with key paramId as const param */
         const param = thisProduct.data.params[paramId];
         /* START LOOP: for each optionId in param.options */
-        for (let optionID in param.options) {
+        for (let optionId in param.options) {
           /* save the element in param.options with key optionId as const option */
           const option = param.options[optionId];
 
@@ -162,17 +162,16 @@
           /* START IF: if option is selected and option is not default */
           if (optionSelected && !option.default) {
             /* add price of option to variable price */
-            price += option.price;
+            price = price + option.price;
             /* END IF: if option is selected and option is not default */
           } else if (!optionSelected && option.delault) {
             /* START ELSE IF: if option is not selected and option is default */
-            price -= option.price;
+            price = price - option.price;
             /* deduct price of option from price */
           }
           /* END ELSE IF: if option is not selected and option is default */
-          const image = '.' + paramId + '-' + optionId;
 
-          const images = thisProduct.imageWrapper.querySelectorAll(classImage);
+          const images = thisProduct.imageWrapper.querySelectorAll('.' + paramId + '-' + optionId);
 
           for(let image of images){
             if(image === optionSelected){
