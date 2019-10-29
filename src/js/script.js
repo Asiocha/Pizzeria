@@ -42,7 +42,7 @@
 
   const settings = {
     amountWidget: {
-      defaultValue: 1,
+      defaultValue: 2,
       defaultMin: 1,
       defaultMax: 9,
     }
@@ -101,7 +101,7 @@
         /* prevent default action for event */
         event.preventDefault();
         /* toggle active class on element of thisProduct */
-        thisProduct.element.classList.toggle('active');
+        thisProduct.element.classList.toggle(classNames.menuProduct.wrapperActive);
         //console.log(thisProduct);
         /* find all active products */
         const activeProducts = document.querySelectorAll(select.all.menuProductsActive);
@@ -111,7 +111,7 @@
           /* START: if the active product isn't the element of thisProduct */
           if (active !== thisProduct.element) {
             /* remove class active for the active product */
-            activeProducts.classList.remove('active');
+            activeProducts.classList.remove(classNames.menuProduct.wrapperActive);
             /* END: if the active product isn't the element of thisProduct */
           }
           /* END LOOP: for each active product */
@@ -179,7 +179,7 @@
             if (optionSelected) {
               image.classList.add(classNames.menuProduct.imageVisible);
 
-            } else if (image && !optionSelected) {
+            } else if (!optionSelected) {
 
               image.classList.remove(classNames.menuProduct.imageVisible);
             }
@@ -188,6 +188,9 @@
         /* END LOOP: for each optionId in param.options */
       }
       /* END LOOP: for each paramId in thisProduct.data.params */
+      /* multiply price by amout */
+      price *= thisProduct.amountWidget.value;
+
       thisProduct.priceElem.innerHTML = thisProduct.price;
       /* set the contents of thisProduct.priceElem to be the value of variable price */
     }
@@ -195,12 +198,38 @@
       const thisProduct = this;
 
       thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem);
+
+      thisProduct.amountWidgetElem.addEventListener('updated', function() {
+        thisProduct.processOrder();
+      });
+    }
+    initActions() {
+      const thisWidget = this;
+
+      thisWidget.input.addEventListener('change', function() {
+        thisWidget.setValue(thisWidget.Value);
+      });
+      thisWidget.linkDecrease.addEventListener('click', function() {
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value - 1);
+      });
+      thisWidget.linkIncrease.addEventListener('click', function() {
+        event.preventDefault();
+        thisWidget.setValue(thisWidget.value + 1);
+      });
+    }
+    announce() {
+      const thisWidget = this;
+
+      const event = new Event('updated');
+      thisWidget.element.dispatchEvent(event);
     }
   }
   class AmountWidget {
     constructor(element) {
       const thisWidget = this;
       thisWidget.getElements(element);
+      thisWidget.value = settings.amountWidget.defaultValue;
 
       console.log('AmountWidget', thisWidget);
       console.log('constructor arguments:', element);
@@ -222,10 +251,17 @@
       const newValue = parseInt(value);
 
       /* TODO: Add validation */
+      const minValue = settings.amountWidget.defaultMin;
+      const maxValue = settings.amountWidget.defaultMax;
 
-      thisWidget.value = newValue;
       thisWidget.input.value = thisWidget.value;
+
+      if (newValue >= minValue && newValue <= maxValue) {
+        thisWidget.value = newValue;
+        thisWidget.announce();
+      }
     }
+
   }
   const app = {
     initMenu: function() {
