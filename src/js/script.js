@@ -145,7 +145,7 @@
           /* START: if the active product isn't the element of thisProduct */
           if (active !== thisProduct.element) {
             /* remove class active for the active product */
-            activeProducts.classList.remove(classNames.menuProduct.wrapperActive);
+            thisProduct.element.classList.remove(classNames.menuProduct.wrapperActive);
             /* END: if the active product isn't the element of thisProduct */
           }
           /* END LOOP: for each active product */
@@ -241,8 +241,9 @@
   class AmountWidget {
     constructor(element) {
       const thisWidget = this;
-      thisWidget.getElements(element);
       thisWidget.value = settings.amountWidget.defaultValue;
+      thisWidget.getElements(element);
+      thisWidget.setValue(thisWidget.input.value);
 
       console.log('AmountWidget', thisWidget);
       console.log('constructor arguments:', element);
@@ -255,7 +256,6 @@
       thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
       thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
       thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
-      thisWidget.setValue(thisWidget.input.value);
     }
 
     setValue(value) {
