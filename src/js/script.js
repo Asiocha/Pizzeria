@@ -356,6 +356,23 @@
       console.log('adding product', menuProduct);
     }
   }
+  class CartProduct {
+    constructor(menuProduct,element){
+      const thisCartProduct = this;
+
+      thisCartProduct.id = menuProduct.id;
+      thisCartProduct.name = menuProduct.name;
+      thisCartProduct.price = menuProduct.price;
+      thisCartProduct.priceSingle = menuProduct.priceSingle;
+      thisCartProduct.amount = menuProduct.amount;
+
+      thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params));
+      console.log('show product', thisCartProduct);
+    }
+    getElements(element){
+      thisCartProduct.params = element;
+    }
+  }
   const app = {
     initMenu: function() {
       const thisApp = this;
