@@ -347,11 +347,12 @@
       const thisCart = this;
       const generatedHTML = templates.cartProduct(menuProduct);
 
-      thisCart.products = utils.createDOMFromHTML(generatedHTML);
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
 
       const productList = thisCart.dom.productList;
 
-      productList.appendChild(thisCart.products);
+      productList.appendChild(generatedDOM);
+      thisCart.products.push(new CartProduct(menuProduct, generatedDOM));
 
       console.log('adding product', menuProduct);
     }
@@ -365,12 +366,22 @@
       thisCartProduct.price = menuProduct.price;
       thisCartProduct.priceSingle = menuProduct.priceSingle;
       thisCartProduct.amount = menuProduct.amount;
+      thisCartProduct.getElements(element);
 
       thisCartProduct.params = JSON.parse(JSON.stringify(menuProduct.params));
+
       console.log('show product', thisCartProduct);
     }
     getElements(element){
-      thisCartProduct.params = element;
+      const thisCartProduct = this;
+
+      thisCartProduct.dom = {};
+
+      thisCartProduct.dom.wrapper = element;
+      thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
+      thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
+      thisCartProduct.dom.edit = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.edit);
+      thisCartProduct.dom.remove = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.remove);
     }
   }
   const app = {
