@@ -394,10 +394,9 @@
     }
     remove(cartProduct) {
       const thisCart = this;
-      const index = thisCart.products.index[cartProduct];
+      const index = thisCart.products.indexOf[cartProduct];
       thisCart.products.splice(index, 1);
-      const removeCartProduct = document.querySelector(cartProduct.dom.wrapper);
-      removeCartProduct.remove();
+      cartProduct.dom.wrapper.remove();
       thisCart.update();
     }
   }
@@ -457,8 +456,9 @@
       });
       thisCartProduct.dom.remove.addEventListener('click', function(event){
         event.preventDefault();
+        thisCartProduct.remove();
       });
-      thisCartProduct.remove();
+
     }
   }
   const app = {
