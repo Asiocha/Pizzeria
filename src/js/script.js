@@ -419,12 +419,12 @@
       const url = settings.db.url + '/' + settings.db.order;
       const thisCart = this;
       console.log('test');
-      thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
+      thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address).value;
       console.log(thisCart.dom.wrapper);
       console.log(select.cart.address);
       thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
       const payload = {
-        address:  thisCart.dom.address,
+        address: thisCart.dom.address,
         totalPrice: thisCart.totalPrice,
         phone: thisCart.dom.phone,
         totalNumber:thisCart.totalNumber,
