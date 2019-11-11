@@ -173,13 +173,13 @@ class Product {
 
     //app.cart.add(thisProduct);
 
-    const event = new CustomEvent ('add-to-cart'){
-      bubbles:true,
-      detail {
-        product: thisProduct;
-      }
-      thisProduct.element.dom.dispatchEvent(event);
-    }
+    const event = new CustomEvent ('add-to-cart', {
+      bubbles: true,
+      detail: {
+        product: thisProduct,
+      },
+    });
+    thisProduct.element.dom.dispatchEvent(event);
   }
 }
 
