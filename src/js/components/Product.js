@@ -20,7 +20,7 @@ class Product {
 
   renderInMenu() {
     const thisProduct = this;
-    /*generate HTML based on template*/
+    /*generate based on template*/
     const generatedHTML = templates.menuProduct(thisProduct.data);
     /*create element using utils.createElementFromHTML*/
     thisProduct.element = utils.createDOMFromHTML(generatedHTML); //we właściwość instancji zapisać wygenerowany element
