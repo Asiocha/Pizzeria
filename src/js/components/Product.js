@@ -179,7 +179,7 @@ class Product {
         product: thisProduct,
       },
     });
-    thisProduct.element.dom.dispatchEvent(event);
+    thisProduct.element.dispatchEvent(event);
   }
 }
 
