@@ -1,4 +1,4 @@
-import settings from '../settings.js';
+import {settings} from '../settings.js';
 import BaseWidget from './BaseWidget.js';
 import utils from '../utils.js';
 
@@ -10,9 +10,9 @@ class HourPicker extends BaseWidget {
 
     thisWidget.dom = {};
 
-    thisWidget.dom.input = thisWidget.dom.wrapper.querySelector('select.widgets.datePicker.input');
+    thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.input);
 
-    thisWidget.dom.output = thisWidget.dom.wrapper.querySelector('select.widgets.datePicker.output');
+    thisWidget.dom.output = thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.output);
 
     thisWidget.dom.input.value = thisWidget.value;
 
