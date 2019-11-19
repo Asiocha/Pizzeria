@@ -10,22 +10,22 @@ class HourPicker extends BaseWidget {
 
     thisWidget.dom = {};
 
-    thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.input);
+    thisWidget.dom.input = thisWidget.wrapper.querySelector(select.widgets.hourPicker.input);
 
-    thisWidget.dom.output = thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.output);
+    thisWidget.dom.output = thisWidget.wrapper.querySelector(select.widgets.hourPicker.output);
 
-    thisWidget.dom.input.value = thisWidget.value;
+    thisWidget.value = thisWidget.dom.input.value;
 
     thisWidget.initPlugin();
   }
   initPlugin() {
     const thisWidget = this;
 
+    rangeSlider.create(thisWidget.dom.input);
     thisWidget.dom.input.addEventListener('input', function(){
       thisWidget.value = thisWidget.dom.input.value;
     });
   }
-
   parseValue(value) {
     return utils.numberToHour(value);
   }
