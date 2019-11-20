@@ -9,13 +9,11 @@ class DatePicker extends BaseWidget {
 
     const thisWidget = this;
 
-    thisWidget.dom = {};
-
     thisWidget.dom.input = thisWidget.dom.wrapper.querySelector(select.widgets.datePicker.input);
 
     thisWidget.initPlugin();
 
-  }
+  };
   initPlugin() {
     const thisWidget = this;
 
@@ -44,7 +42,7 @@ class DatePicker extends BaseWidget {
   }
 
   parseValue(value) {
-    return !isNaN(value);
+    return isNaN(value);
   }
   isValid() {
     return true;
