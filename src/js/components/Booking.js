@@ -9,7 +9,7 @@ class Booking {
     const thisBooking = this;
     thisBooking.render(element);
     thisBooking.initWidget();
-  };
+  }
   render(element) {
     const thisBooking = this;
 
@@ -25,7 +25,7 @@ class Booking {
     thisBooking.dom.datePicker = thisBooking.dom.wrapper.querySelector(select.widgets.datePicker.wrapper);
     thisBooking.dom.hourPicker = thisBooking.dom.wrapper.querySelector(select.widgets.hourPicker.wrapper);
     console.log('thisBooking.dom.datePicker', thisBooking.dom.datePicker);
-  };
+  }
 
   initWidget() {
     const thisBooking = this;
@@ -37,6 +37,6 @@ class Booking {
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
 
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
-  };
+  }
 }
 export default Booking;
