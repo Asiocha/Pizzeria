@@ -51,10 +51,10 @@ class Booking {
     //console.log('getData urls', urls);
 
     Promise.all([
-        fetch(urls.booking),
-        fetch(urls.eventsCurrent),
-        fetch(urls.eventsRepeat),
-      ])
+      fetch(urls.booking),
+      fetch(urls.eventsCurrent),
+      fetch(urls.eventsRepeat),
+    ])
       .then(function(allResponses) {
         const bookingsResponse = allResponses[0];
         const eventsCurrentResponse = allResponses[1];
@@ -144,6 +144,7 @@ class Booking {
       } else {
         table.classList.remove(classNames.booking.tableBooked);
       }
+      table.classList.remove(classNames.booking.selectTable);
     }
   }
 
@@ -178,6 +179,44 @@ class Booking {
     thisBooking.dom.wrapper.addEventListener('updated', function() {
       thisBooking.updateDOM();
     });
+
+    thisBooking.selectTable = 'table';
+
+    for (let table of thisBooking.dom.tables) {
+      table.addEventListener('click', function() {
+        console.log('click');
+        if (!table.classList.contains('booked')) {
+          table.classList.toggle(classNames.booking.selectTable);
+        }
+      });
+    }
+  }
+  sendReservation() {
+    const url = settings.db.url + '/' + settings.db.booking;
+    const thisBooking = this;
+    const payload = {
+      date: thisBooking.dom.datePicker,
+      hour: thisBooking.dom.hourPicker,
+      tables: thisBooking.selectTable,
+      duration: thisBooking.dom.hoursAmount,
+      peoples: thisBooking.dom.peopleAmount,
+
+    };
+    console.log('sendReservation');
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    };
+    fetch(url, options)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(parsedResponse) {
+        console.log('parsedResponse', parsedResponse);
+      });
   }
 }
 export default Booking;
